@@ -73,3 +73,72 @@ void Player::play(ActionCard&& card){
         }
     }
 }
+
+/**
+ * @post: Adds a point card from point deck to player hand 
+ */
+void Player::drawPointCard(){
+    if(pointdeck_->IsEmpty()){
+        return;
+    }
+    else{
+        hand_.addCard(pointdeck_->Draw());
+    }
+}
+/**
+ * @post: Play a point from the player's hand and add it to their score
+ * 
+ */
+void Player::playPointCard(){
+    if(hand_.isEmpty()){
+        return;
+    }
+    else{   
+        score_+= hand_.PlayCard();
+    }
+}
+
+/**
+ * @post: Sets the opponenet of the player
+ * @param: a pointer to a opponent/other player
+ */
+void Player::setOpponent(Player* opponent){
+    opponent_ = opponent;
+}
+
+/**
+ * @return the player's opponent
+ */
+Player* Player::getOpponent(){
+    return opponent_;
+}
+
+/**
+ * @post:: set the action deck of the player
+ * @param: A pointer to a deck holding Action Cards
+ */
+void Player::setActionDeck(Deck<ActionCard>* action_deck){
+    actiondeck_ = action_deck;
+}
+
+/**
+ * @return Player's action deck
+ */
+Deck<ActionCard>* Player::getActionDeck(){
+    return actiondeck_;
+}
+
+/**
+ * @post: set the point deck of the player
+ * @param: pointer to a deck storing point cards
+ */
+void Player::setPointDeck(Deck<PointCard>* pointdeck){
+        pointdeck_ = pointdeck;
+}
+
+/**
+ * @return Player's deck of point cards
+ */
+Deck<PointCard>* Player::getPointDeck(){
+    return pointdeck_;
+}
