@@ -25,11 +25,7 @@ Card::~Card(){
  * @post: Construct a new Card:: Card object
  * @param: const reference to a Card object 
  */
-Card::Card(const Card& rhs){
-    cardType_ = rhs.cardType_;
-    instruction_ = rhs.instruction_;
-    bitmap_ = rhs.bitmap_;
-    drawn_ = rhs.drawn_;
+Card::Card(const Card& rhs) :cardType_(rhs.cardType_), instruction_(rhs.instruction_), bitmap_(rhs.bitmap_), drawn_(rhs.drawn_){
 }
 
 /**
@@ -38,10 +34,12 @@ Card::Card(const Card& rhs){
 * @return this Card object
 */
 Card& Card::operator=(const Card& rhs){
-    cardType_ = rhs.cardType_;
-    instruction_ = rhs.instruction_;
-    bitmap_ = rhs.bitmap_;
-    drawn_ = rhs.drawn_;
+    if(this != &rhs){
+        cardType_ = rhs.cardType_;
+        instruction_ = rhs.instruction_;
+        bitmap_ = rhs.bitmap_;
+        drawn_ = rhs.drawn_;
+    }
     return *this;
 }
 
@@ -49,11 +47,8 @@ Card& Card::operator=(const Card& rhs){
  * Move Constructer
  * @param: rvalue reference to a Card Object 
  */
-Card::Card(Card&& rhs){
-    std::swap(cardType_, rhs.cardType_);
-    std::swap(instruction_ ,rhs.instruction_);
-    std::swap(bitmap_,rhs.bitmap_);
-    std::swap(drawn_,rhs.drawn_);
+Card::Card(Card&& rhs) : instruction_(rhs.instruction_),bitmap_(rhs.bitmap_),drawn_(rhs.drawn_),CardType(rhs.CardType){
+    rhs.~Card();
 }
 
 /**
@@ -61,7 +56,7 @@ Card::Card(Card&& rhs){
  * @param: rvalue reference to a Card object
  * @return this card object
  */
-Card& Card::operator=(Card&& rhs) : instruction(""),bitmap_(nullptr),drawn_(false){
+Card& Card::operator=(Card&& rhs){
     std::swap(cardType_, rhs.cardType_);
     std::swap(instruction_,rhs.instruction_);
     std::swap(bitmap_,rhs.bitmap_);

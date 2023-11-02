@@ -35,7 +35,9 @@ Hand::Hand(const Hand& other) : cards_(other.cards_){
  * @return this Hand;
  */
 Hand& Hand::operator=(const Hand& other){
-    cards_ = other.cards_;
+    if(this != &other){
+        cards_ = other.cards_;
+    }
     return *this;
 }
 
@@ -65,7 +67,7 @@ const std::deque<PointCard>& Hand::getCards() const{
 }
 
 /**
- * @return ture if hand is empty
+ * @return true if hand is empty
  */
 bool Hand::isEmpty() const{
     if(cards_.empty()){
@@ -93,6 +95,6 @@ int Hand::PlayCard(){
         throw std::invalid_argument("Card isn't playable");
     }
     PointCard card = cards_.front();
-    cards_.pop_front();
+    card.setDrawn(true);
     return std::stoi(card.getInstruction());
 }

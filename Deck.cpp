@@ -43,6 +43,7 @@ void Deck<CardType>::AddCard(const CardType& card){
  */
 template<typename CardType>
 CardType&& Deck<CardType>::Draw(){
+    cards_.back().setDrawn(true);
     return std::move(cards_.back());
 }
 
