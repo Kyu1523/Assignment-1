@@ -50,13 +50,13 @@ int Player::getScore() const{
 void Player::play(ActionCard&& card){
     std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
     if(card.isPlayable()){
-        if(card.getInstruction().substr(0,3) == "DRAW"){
+        if(card.getInstruction().substr(0,4) == "DRAW"){
             int num = card.getInstruction().at(5);
             for(int i = 0; i < num; i++){
                 hand_.addCard(std::move(pointdeck_->Draw()));
             }
         }
-        else if(card.getInstruction().substr(0,3) == "PLAY"){
+        else if(card.getInstruction().substr(0,4) == "PLAY"){
             int num = card.getInstruction().at(5);
             for(int i = 0; i < num; i++){
                 score_ += hand_.PlayCard();

@@ -9,7 +9,7 @@ ActionCard.cpp defines the implementation of ActionCard.hpp
 #include "ActionCard.hpp"
 
 /**
- * @post:Construt a new Action Card Object
+ * @post:Construct a new Action Card Object
  */
 ActionCard::ActionCard(){
     setType(ACTION_CARD);
