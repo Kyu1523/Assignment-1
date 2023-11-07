@@ -40,6 +40,9 @@ void Deck<CardType>::AddCard(const CardType& card){
  */
 template<typename CardType>
 CardType&& Deck<CardType>::Draw(){
+    if(IsEmpty()){
+        throw std::out_of_range("Deck is Empty");
+    }
     while(cards_.back().getInstruction() == ""){
         cards_.pop_back();
     }
