@@ -25,10 +25,10 @@ ActionCard::ActionCard(){
  * Swap hands with opponent
  */
 bool ActionCard::isPlayable(){
-    if(getInstruction().substr(0,3) == "DRAW" && std::isdigit(getInstruction().at(5)) && getInstruction().substr(7,13) == "CARD(S)"){
+    if(getInstruction().substr(0,4) == "DRAW" && std::isdigit(getInstruction().at(5)) && getInstruction().substr(7,14) == "CARD(S)"){
         return true;
     }
-    else if(getInstruction().substr(0,3) == "PLAY" && std::isdigit(getInstruction().at(5)) && getInstruction().substr(7,13) == "CARD(S)"){
+    else if(getInstruction().substr(0,3) == "PLAY" && std::isdigit(getInstruction().at(5)) && getInstruction().substr(7,14) == "CARD(S)"){
         return true;
     }
     else if(getInstruction() == "REVERSE HAND"){
