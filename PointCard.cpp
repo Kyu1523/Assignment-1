@@ -42,7 +42,8 @@ void PointCard::Print() const{
     std::cout << "Type: " << this->getType() << std::endl;
     std::cout << "Points: " << this->getInstruction() << std::endl;
     if(this->getImageData() == nullptr){
-        std::cout << "Card: " << "No image data" << std::endl;
+        std::cout << "Card: " << std::endl;
+        std::cout << "No image data" << std::endl;
     }
     else{
         const int* x = getImageData();

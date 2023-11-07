@@ -50,7 +50,8 @@ void ActionCard::Print() const {
     std::cout << "Type: " << this->getType() << std::endl;
     std::cout << "Instruction: " << this->getInstruction() << std::endl;
     if(getImageData() == nullptr){
-        std::cout << "Card: " << "No image data" << std::endl;
+        std::cout << "Card: " << std::endl;
+        std::cout << "No image data" << std::endl;
     }
     else{
         const int* x = getImageData();
