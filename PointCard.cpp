@@ -45,7 +45,7 @@ void PointCard::Print() const{
         std::cout << "Card: " << "No image data" << std::endl;
     }
     else{
-        int x = getImageData();
+        const int* x = getImageData();
         std::cout << "Card: " << std::endl;
         for(int i = 0; i < 80; i++){
             std::cout << x[i];

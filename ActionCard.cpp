@@ -31,7 +31,7 @@ bool ActionCard::isPlayable(){
     else if(getInstruction().substr(0,3) == "PLAY" && std::isdigit(getInstruction().at(5)) && getInstruction().substr(7,13) == "CARD(S)"){
         return true;
     }
-    else if(>getInstruction() == "REVERSE HAND"){
+    else if(getInstruction() == "REVERSE HAND"){
         return true;
     }
     else if(getInstruction() == "SWAP HAND WITH OPPONENT"){
@@ -49,11 +49,11 @@ bool ActionCard::isPlayable(){
 void ActionCard::Print() const {
     std::cout << "Type: " << this->getType() << std::endl;
     std::cout << "Instruction: " << this->getInstruction() << std::endl;
-    if(this->getImageData() == nullptr){
+    if(getImageData() == nullptr){
         std::cout << "Card: " << "No image data" << std::endl;
     }
     else{
-        int x = getImageData();
+        const int* x = getImageData();
         std::cout << "Card: " << std::endl;
         for(int i = 0; i < 80; i++){
             std::cout << x[i];

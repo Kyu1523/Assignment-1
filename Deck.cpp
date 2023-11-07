@@ -35,7 +35,6 @@ void Deck<CardType>::AddCard(const CardType& card){
     cards_.push_back(card);
 }
 
-
 /**
  * @post: Draw a card from the deck
  * @pre: the deck is not empty

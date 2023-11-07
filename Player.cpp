@@ -4,7 +4,7 @@
  * @post: Construct a new Player Object
  * 
  */
-Player::Player() : score_(0),opponent_(nullptr){
+Player::Player() : score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(nullptr){
 
 }
 /**
@@ -53,7 +53,7 @@ void Player::play(ActionCard&& card){
         if(card.getInstruction().substr(0,3) == "DRAW"){
             int num = card.getInstruction().at(5);
             for(int i = 0; i < num; i++){
-                hand_.addCard(pointdeck_->Draw());
+                hand_.addCard(std::move(pointdeck_->Draw()));
             }
         }
         else if(card.getInstruction().substr(0,3) == "PLAY"){
@@ -82,7 +82,7 @@ void Player::drawPointCard(){
         return;
     }
     else{
-        hand_.addCard(pointdeck_->Draw());
+        hand_.addCard(std::move(pointdeck_->Draw()));
     }
 }
 /**

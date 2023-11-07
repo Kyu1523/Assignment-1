@@ -12,7 +12,6 @@ Hand.cpp is the implementation of the hand class
  * @post: Construct a new Hand object
  */
 Hand::Hand(){
-
 }
 
 /**
@@ -64,6 +63,13 @@ Hand& Hand::operator=(Hand&& other){
  */
 const std::deque<PointCard>& Hand::getCards() const{
     return cards_;
+}
+/**
+ * @post: Add a card to the hand 
+ * @param: Pointcard object
+ */
+void Hand::addCard(PointCard&& card){
+    cards_.push_back(card);
 }
 
 /**

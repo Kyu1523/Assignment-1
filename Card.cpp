@@ -34,12 +34,8 @@ Card::Card(const Card& rhs) :cardType_(rhs.cardType_), instruction_(rhs.instruct
 * @return this Card object
 */
 Card& Card::operator=(const Card& rhs){
-    if(this != &rhs){
-        cardType_ = rhs.cardType_;
-        instruction_ = rhs.instruction_;
-        bitmap_ = rhs.bitmap_;
-        drawn_ = rhs.drawn_;
-    }
+    Card copy = rhs;
+    std::swap(*this,copy);
     return *this;
 }
 
@@ -47,7 +43,7 @@ Card& Card::operator=(const Card& rhs){
  * Move Constructer
  * @param: rvalue reference to a Card Object 
  */
-Card::Card(Card&& rhs) : instruction_(rhs.instruction_),bitmap_(rhs.bitmap_),drawn_(rhs.drawn_),CardType(rhs.CardType){
+Card::Card(Card&& rhs) : instruction_(rhs.instruction_),bitmap_(rhs.bitmap_),drawn_(rhs.drawn_),cardType_(rhs.cardType_){
     rhs.~Card();
 }
 
@@ -105,7 +101,6 @@ void Card::setType(const CardType& type){
 }
 
 /**
- * @return the string re
  * @return the string representation of the card instruction
  */
 const std::string& Card::getInstruction() const{
