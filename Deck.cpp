@@ -40,13 +40,15 @@ void Deck<CardType>::AddCard(const CardType& card){
  */
 template<typename CardType>
 CardType&& Deck<CardType>::Draw(){
-    cards_.back().setDrawn(true);
+    while(cards_.back().getInstruction() == ""){
+        cards_.pop_back();
+    }
+    cards_.back().setDrawn(true); 
     return std::move(cards_.back());
 }
 
 /**
  * @return if the deck is empty
- * 
  */
 template<typename CardType>
 bool Deck<CardType>::IsEmpty() const{
