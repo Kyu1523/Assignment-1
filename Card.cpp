@@ -34,8 +34,10 @@ Card::Card(const Card& rhs) :cardType_(rhs.cardType_), instruction_(rhs.instruct
 * @return this Card object
 */
 Card& Card::operator=(const Card& rhs){
-    Card copy = rhs;
-    std::swap(*this,copy);
+    instruction_ = rhs.instruction_;
+    bitmap_ = rhs.bitmap_;
+    drawn_ = rhs.drawn_;
+    cardType_ = rhs.cardType_;
     return *this;
 }
 
