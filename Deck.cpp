@@ -18,8 +18,6 @@ Deck<CardType>::Deck(){
 
 /**
  * @brief Destroy the Deck:: Deck object
- * 
- * @tparam CardType 
  */
 template<typename CardType>
 Deck<CardType>::~Deck(){
@@ -61,7 +59,7 @@ bool Deck<CardType>::IsEmpty() const{
 template<typename CardType>
 void Deck<CardType>::Shuffle(){
     std::mt19937 mt(2028358904);
-    cards_.shuffle(cards_.begin(),cards_.end(),mt);
+    std::shuffle(cards_.begin(),cards_.end(),mt);
 }
 
 /**
