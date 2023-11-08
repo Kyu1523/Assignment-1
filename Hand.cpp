@@ -34,9 +34,7 @@ Hand::Hand(const Hand& other) : cards_(other.cards_){
  * @return this Hand;
  */
 Hand& Hand::operator=(const Hand& other){
-    if(this != &other){
-        cards_ = other.cards_;
-    }
+    cards_ = other.cards_;
     return *this;
 }
 
@@ -69,6 +67,7 @@ const std::deque<PointCard>& Hand::getCards() const{
  * @param: Pointcard object
  */
 void Hand::addCard(PointCard&& card){
+    card.setDrawn(true);
     cards_.push_back(card);
 }
 
@@ -76,10 +75,7 @@ void Hand::addCard(PointCard&& card){
  * @return true if hand is empty
  */
 bool Hand::isEmpty() const{
-    if(cards_.empty()){
-        return true;
-    }
-    return false;
+    return cards_.empty();
 }
 
 /**
@@ -94,13 +90,19 @@ void Hand::Reverse(){
  * @return the points earned from playing the card
  */
 int Hand::PlayCard(){
-    if(cards_.empty()){
+    if(isEmpty()){
         throw std::invalid_argument("Hand is empty");
     }
-    if(!cards_.front().isPlayable()){
-        throw std::invalid_argument("Card isn't playable");
+    std::string instruct = cards_.front().getInstruction();
+    for(int i = 0; i < instruct.length();i++){
+        if(!std::isdigit(instruct[i])){
+            throw std::invalid_argument("Card is not Playable");
+        }
+    }
+    if(!cards_.front().getDrawn()){
+        throw std::invalid_argument("Card is not Playable");
     }
     PointCard card = cards_.front();
-    card.setDrawn(true);
+    cards_.pop_front();
     return std::stoi(card.getInstruction());
 }
