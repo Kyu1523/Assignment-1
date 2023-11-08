@@ -46,6 +46,9 @@ CardType&& Deck<CardType>::Draw(){
     while(cards_.back().getInstruction() == ""){
         cards_.pop_back();
     }
+    if(IsEmpty()){
+        throw std::out_of_range("Deck is Empty");
+    }
     cards_.back().setDrawn(true);
     return std::move(cards_.back());
 }
