@@ -88,24 +88,14 @@ void Player::play(ActionCard&& card){
  * @post: Adds a point card from point deck to player hand 
  */
 void Player::drawPointCard(){
-    if(pointdeck_->IsEmpty()){
-        throw std::invalid_argument("Point Deck is Empty");
-    }
-    else{
-        hand_.addCard(pointdeck_->Draw());
-    }
+    hand_.addCard(pointdeck_->Draw());
 }
 /**
  * @post: Play a point from the player's hand and add it to their score
  * 
  */
-void Player::playPointCard(){
-    if(hand_.isEmpty()){
-        throw std::invalid_argument("Hand is Empty");
-    }
-    else{    
-        score_+= hand_.PlayCard();
-    }
+void Player::playPointCard(){   
+    score_+= hand_.PlayCard();
 }
 
 /**

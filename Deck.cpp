@@ -43,7 +43,7 @@ CardType&& Deck<CardType>::Draw(){
     if(IsEmpty()){
         throw std::invalid_argument("Deck is Empty");
     }
-    if(!cards_.back().isPlayable()){    //removes already moved cards
+    while(!cards_.back().isPlayable()){    //removes already moved cards
         cards.pop_back();
     }
     if(IsEmpty()){                              //if empty after popping
