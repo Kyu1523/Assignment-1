@@ -66,6 +66,12 @@ void Player::play(ActionCard&& card){
             hand_ = opponent_.hand_;
             opponent_.hand = temp;
             temp.~Hand();
+        }
+        else if(card.getInstruction().substr(0,4) == "PLAY"){
+            int num = card.getInstruction().at(5);
+            for(int i = 0; i < num; i++){
+                playPointCard();
+            }
         } 
         else if(card.getInstruction().substr(0,4) == "DRAW"){
             int num = card.getInstruction().at(5);
@@ -73,16 +79,9 @@ void Player::play(ActionCard&& card){
                 drawPointCard();
             }
         }
-        else if(card.getInstruction().substr(0,4) == "PLAY"){
-            int num = card.getInstruction().at(5);
-            for(int i = 0; i < num; i++){
-                playPointCard();
-            }
-        }
-        
     }
     else{
-        throw std::invalid_argument("Card is not Playable");
+        return;
     }
 }
 
@@ -90,14 +89,18 @@ void Player::play(ActionCard&& card){
  * @post: Adds a point card from point deck to player hand 
  */
 void Player::drawPointCard(){
-    hand_.addCard(pointdeck_->Draw());
+    if(pointdeck_ != nullptr){
+        hand_.addCard(pointdeck_->Draw());
+    }
 }
 /**
  * @post: Play a point from the player's hand and add it to their score
  * 
  */
 void Player::playPointCard(){   
-    score_+= hand_.PlayCard();
+    if(!hand_.isEmpty()){
+        score_+= hand_.PlayCard();
+    }
 }
 
 /**
