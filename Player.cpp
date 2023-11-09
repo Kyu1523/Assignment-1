@@ -12,19 +12,17 @@ Player.cpp is the implementation of the Player Class
  * @post: Construct a new Player Object
  * 
  */
-Player::Player() : hand_(),score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(nullptr){
+Player::Player() :score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(nullptr){
 }
+
 /**
  * @post: Destroy the Player object
  */
 Player::~Player(){
     hand_.~Hand();
     score_ = 0;
-    actiondeck_->~Deck();
     actiondeck_ = nullptr;
-    pointdeck_->~Deck();
     pointdeck_ = nullptr;
-    opponent_->~Player();
     opponent_ = nullptr;
 }
 
