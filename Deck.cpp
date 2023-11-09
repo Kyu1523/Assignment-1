@@ -41,13 +41,13 @@ void Deck<CardType>::AddCard(const CardType& card){
 template<typename CardType>
 CardType&& Deck<CardType>::Draw(){
     if(IsEmpty()){
-        throw std::invalid_argument("Deck is Empty");
+        throw std::out_of_range("Deck is Empty");
     }
-    while(!cards_.back().isPlayable()){    //removes already moved cards
-        cards.pop_back();
+    while(cards_.back().getInstruction() == "" && cards_.back().getImageData() == nullptr){   //removes cards that aren't playable
+        cards_.pop_back();
     }
-    if(IsEmpty()){                              //if empty after popping
-        throw std::invalid_argument("Deck is Empty");
+    if(IsEmpty()){                      //if empty after popping already moved cards
+        throw std::out_of_range("Deck is Empty");
     }
     cards_.back().setDrawn(true);
     return std::move(cards_.back());
