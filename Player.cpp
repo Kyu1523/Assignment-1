@@ -48,29 +48,29 @@ int Player::getScore() const{
  * PLAYING ACTION CARD: [instruction]
  */
 void Player::play(ActionCard&& card){
-    std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
     if(card.isPlayable()){
+        std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
         if(card.getInstruction().substr(0,4) == "DRAW"){
-            int num = card.getInstruction().at(5);
+            int num = stoi(card.getInstruction().at(5));
             for(int i = 0; i < num; i++){
-                hand_.addCard(std::move(pointdeck_->Draw()));
+                drawPointCard();
             }
         }
         else if(card.getInstruction().substr(0,4) == "PLAY"){
-            int num = card.getInstruction().at(5);
+            int num = stoi(card.getInstruction().at(5));
             for(int i = 0; i < num; i++){
-                score_ += hand_.PlayCard();
+                playPointCard();
             }
         }
         else if(card.getInstruction() == "REVERSE HAND"){
             hand_.Reverse();
         }
         else if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
-            Hand temp = hand_;
-            hand_ = opponent_->hand_;
-            opponent_->hand_ = temp;
-            temp.~Hand();
+            std::swap(hand_, opponent_->hand_);
         }
+    }
+    else{
+        throw std::invalid_argument("Card is not Playable");
     }
 }
 
@@ -93,7 +93,7 @@ void Player::playPointCard(){
     if(hand_.isEmpty()){
         return;
     }
-    else{   
+    else{    
         score_+= hand_.PlayCard();
     }
 }
