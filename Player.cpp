@@ -62,22 +62,24 @@ void Player::play(ActionCard&& card){
             hand_.Reverse();
         }
         else if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
-            std::swap(hand_, opponent_->hand_);
-        }
-        else{
-            if(card.getInstruction().substr(0,4) == "DRAW"){
-                int num = card.getInstruction().at(5);
-                for(int i = 0; i < num; i++){
-                    drawPointCard();
-                }
-            }
-            else if(card.getInstruction().substr(0,4) == "PLAY"){
-                int num = card.getInstruction().at(5);
-                for(int i = 0; i < num; i++){
-                    playPointCard();
-                }
+            Hand temp = hand_;
+            hand_ = opponent_.hand_;
+            opponent_.hand = temp;
+            temp.~Hand();
+        } 
+        else if(card.getInstruction().substr(0,4) == "DRAW"){
+            int num = card.getInstruction().at(5);
+            for(int i = 0; i < num; i++){
+                drawPointCard();
             }
         }
+        else if(card.getInstruction().substr(0,4) == "PLAY"){
+            int num = card.getInstruction().at(5);
+            for(int i = 0; i < num; i++){
+                playPointCard();
+            }
+        }
+        
     }
     else{
         throw std::invalid_argument("Card is not Playable");
