@@ -90,7 +90,7 @@ void Player::drawPointCard(){
         throw std::invalid_argument("Point Deck is Empty");
     }
     else{
-        hand_.addCard(std::move(pointdeck_->Draw()));
+        hand_.addCard(pointdeck_->Draw());
     }
 }
 /**
