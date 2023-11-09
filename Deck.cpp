@@ -30,7 +30,12 @@ Deck<CardType>::~Deck(){
  */
 template<typename CardType>
 void Deck<CardType>::AddCard(const CardType& card){
-    cards_.push_back(card);
+    if(card.isPlayable()){
+        cards_.push_back(card);
+    }
+    else{
+        throw std::invalid_argument("Card is not Playable");
+    }
 }
 
 /**
