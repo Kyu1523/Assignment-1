@@ -44,7 +44,7 @@ CardType&& Deck<CardType>::Draw(){
         throw std::invalid_argument("Deck is Empty");
     }
     if(!cards_.back().isPlayable()){    //removes already moved cards
-        throw std::invalid_argument("Card is not playable");
+        cards.pop_back();
     }
     if(IsEmpty()){                              //if empty after popping
         throw std::invalid_argument("Deck is Empty");
