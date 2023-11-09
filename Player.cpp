@@ -58,23 +58,25 @@ int Player::getScore() const{
 void Player::play(ActionCard&& card){
     if(card.isPlayable()){
         std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
-        if(card.getInstruction().substr(0,4) == "DRAW"){
-            int num = card.getInstruction().at(5);
-            for(int i = 0; i < num; i++){
-                drawPointCard();
-            }
-        }
-        else if(card.getInstruction().substr(0,4) == "PLAY"){
-            int num = card.getInstruction().at(5);
-            for(int i = 0; i < num; i++){
-                playPointCard();
-            }
-        }
-        else if(card.getInstruction() == "REVERSE HAND"){
+        if(card.getInstruction() == "REVERSE HAND"){
             hand_.Reverse();
         }
-        else if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
+        if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
             std::swap(hand_, opponent_->hand_);
+        }
+        else{
+            if(card.getInstruction().substr(0,4) == "DRAW"){
+                int num = card.getInstruction().at(5);
+                for(int i = 0; i < num; i++){
+                    drawPointCard();
+                }
+            }
+            else if(card.getInstruction().substr(0,4) == "PLAY"){
+                int num = card.getInstruction().at(5);
+                for(int i = 0; i < num; i++){
+                    playPointCard();
+                }
+            }
         }
     }
     else{

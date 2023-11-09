@@ -31,7 +31,6 @@ Deck<CardType>::~Deck(){
 template<typename CardType>
 void Deck<CardType>::AddCard(const CardType& card){
     cards_.push_back(card);
-    
 }
 
 /**
