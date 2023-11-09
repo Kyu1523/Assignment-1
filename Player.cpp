@@ -1,11 +1,18 @@
+/*
+CSCI335 Fall 2023
+Assignment 1 - Card Game
+Kenny Yu
+11/5
+Player.cpp is the implementation of the Player Class
+*/
+
 #include "Player.hpp"
 
 /**
  * @post: Construct a new Player Object
  * 
  */
-Player::Player() : score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(nullptr){
-
+Player::Player() : hand_(),score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(nullptr){
 }
 /**
  * @post: Destroy the Player object
@@ -13,9 +20,12 @@ Player::Player() : score_(0),opponent_(nullptr),actiondeck_(nullptr),pointdeck_(
 Player::~Player(){
     hand_.~Hand();
     score_ = 0;
-    opponent_ = nullptr;
     actiondeck_->~Deck();
+    actiondeck_ = nullptr;
     pointdeck_->~Deck();
+    pointdeck_ = nullptr;
+    opponent_->~Player();
+    opponent_ = nullptr;
 }
 
 /**
@@ -51,13 +61,13 @@ void Player::play(ActionCard&& card){
     if(card.isPlayable()){
         std::cout << "PLAYING ACTION CARD: " << card.getInstruction() << std::endl;
         if(card.getInstruction().substr(0,4) == "DRAW"){
-            int num = stoi(card.getInstruction().at(5));
+            int num = card.getInstruction().at(5);
             for(int i = 0; i < num; i++){
                 drawPointCard();
             }
         }
         else if(card.getInstruction().substr(0,4) == "PLAY"){
-            int num = stoi(card.getInstruction().at(5));
+            int num = card.getInstruction().at(5);
             for(int i = 0; i < num; i++){
                 playPointCard();
             }
@@ -79,7 +89,7 @@ void Player::play(ActionCard&& card){
  */
 void Player::drawPointCard(){
     if(pointdeck_->IsEmpty()){
-        return;
+        throw std::invalid_argument("Point Deck is Empty");
     }
     else{
         hand_.addCard(std::move(pointdeck_->Draw()));
@@ -91,7 +101,7 @@ void Player::drawPointCard(){
  */
 void Player::playPointCard(){
     if(hand_.isEmpty()){
-        return;
+        throw std::invalid_argument("Hand is Empty");
     }
     else{    
         score_+= hand_.PlayCard();
