@@ -61,7 +61,7 @@ void Player::play(ActionCard&& card){
         if(card.getInstruction() == "REVERSE HAND"){
             hand_.Reverse();
         }
-        if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
+        else if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
             std::swap(hand_, opponent_->hand_);
         }
         else{
@@ -133,7 +133,7 @@ Deck<ActionCard>* Player::getActionDeck(){
  * @param: pointer to a deck storing point cards
  */
 void Player::setPointDeck(Deck<PointCard>* pointdeck){
-        pointdeck_ = pointdeck;
+    pointdeck_ = pointdeck;
 }
 
 /**
