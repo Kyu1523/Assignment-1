@@ -30,9 +30,7 @@ Deck<CardType>::~Deck(){
  */
 template<typename CardType>
 void Deck<CardType>::AddCard(const CardType& card){
-    if(card.isPlayable()){
-        cards_.push_back(card);
-    }
+    cards_.push_back(card);
 }
 
 /**
@@ -42,17 +40,16 @@ void Deck<CardType>::AddCard(const CardType& card){
  */
 template<typename CardType>
 CardType&& Deck<CardType>::Draw(){
-    if(IsEmpty()){
-        throw std::out_of_range("Deck is Empty");
-    }
-    while(cards_.back().getInstruction() == "" && cards_.back().getImageData() == nullptr){   //removes cards that aren't playable
+    while(!cards_.empty() && cards_.back().getInstruction() == ""){   //removes cards that aren't playable
         cards_.pop_back();
     }
-    if(IsEmpty()){                      //if empty after popping already moved cards
+    if(!cards_.empty()){        //if there are still cards after popping return a rvalue of card
+        cards_.back().setDrawn(true);
+        return std::move(cards_.back());
+    }
+    else{
         throw std::out_of_range("Deck is Empty");
     }
-    cards_.back().setDrawn(true);
-    return std::move(cards_.back());
 }
 
 /**

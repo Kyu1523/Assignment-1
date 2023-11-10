@@ -63,20 +63,21 @@ void Player::play(ActionCard&& card){
         }
         else if(card.getInstruction() == "SWAP HAND WITH OPPONENT"){
             Hand temp = hand_;
-            hand_ = opponent_.hand_;
-            opponent_.hand = temp;
-            temp.~Hand();
+            hand_ = opponent_->getHand();
+            opponent_->setHand(temp);
         }
-        else if(card.getInstruction().substr(0,4) == "PLAY"){
-            int num = card.getInstruction().at(5);
-            for(int i = 0; i < num; i++){
-                playPointCard();
-            }
-        } 
-        else if(card.getInstruction().substr(0,4) == "DRAW"){
-            int num = card.getInstruction().at(5);
-            for(int i = 0; i < num; i++){
-                drawPointCard();
+        else{
+            else if(card.getInstruction().substr(0,4) == "PLAY"){
+                int num = card.getInstruction().at(5);
+                for(int i = 0; i < num; i++){
+                    playPointCard();
+                }
+            } 
+            else if(card.getInstruction().substr(0,4) == "DRAW"){
+                int num = card.getInstruction().at(5);
+                for(int i = 0; i < num; i++){
+                    drawPointCard();
+                }
             }
         }
     }
